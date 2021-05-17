@@ -9,53 +9,44 @@
 from tkinter import *
 
 
-def fopen():
-    fname = entry.get()
-    f = open(fname)
-    text.delete(1.0, END)
-    text.insert(1.0, f.read)
+def load():
+    ent.get()
+    with open('text.txt', 'r') as f:
+        result = text.insert(0.1, f.read())
+        return result
 
 
-def fsave():
-    fname = entry.get()
-    f = open(fname, 'x')
-    f.write(text.get(1.0, END))
-    text.delete(1.0, END)
+def save():
+    form = text.get(0.1, 'end')
+    ent.get()
+    with open('text.txt', 'r+') as f:
+        f.write(form)
 
 
 root = Tk()
+f_top = Frame(root)
+f_bot = Frame(root)
+ent = Entry(f_top, width=20)
+but1 = Button(
+    f_top,
+    width=10,
+    text="Открыть"
+)
+but2 = Button(
+    f_top,
+    width=10,
+    text="Сохранить"
+)
+text = Text(f_bot, width=40, height=20)
 
-f1 = Frame()
-f1.pack()
-entry = Entry(f1, width=20)
-entry.pack(side=LEFT)
+but1.config(command=load)
+but2.config(command=save)
 
-
-def file_load():
-    pass
-
-
-Button(f1, text="Открыть", command=file_load) \
-    .pack(side=LEFT)
-
-
-def file_save():
-    pass
-
-
-Button(f1, text="Сохранить", command=file_save) \
-    .pack(side=LEFT)
-
-f2 = Frame()
-f2.pack()
-text = Text(f2, width=50, height=20, wrap=NONE)
+f_top.pack()
+f_bot.pack()
+ent.pack(side=LEFT, padx=10)
+but1.pack(side=LEFT, padx=5)
+but2.pack(side=LEFT)
 text.pack(side=LEFT)
-scroll = Scrollbar(f2, command=text.yview)
-scroll.pack(side=LEFT, fill=Y)
-text.config(yscrollcommand=scroll.set)
-
-scroll2 = Scrollbar(orient=HORIZONTAL, command=text.xview)
-scroll2.pack(side=BOTTOM, fill=X)
-text.config(xscrollcommand=scroll2.set)
 
 root.mainloop()

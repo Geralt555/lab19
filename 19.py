@@ -14,11 +14,11 @@ from tkinter import *
 class Main(Frame):
     def __init__(self, root):
         super(Main, self).__init__(root)
-        self.lbl = Label(text=self.formula, font=("Times New Roman", 21, "bold"), bg="#000", foreground="#FFF")
-        self.formula = "0"
         self.build()
 
     def build(self):
+        self.formula = "0"
+        self.lbl = Label(text=self.formula, font=("Times New Roman", 21, "bold"), bg="#000", foreground="#FFF")
         self.lbl.place(x=11, y=50)
 
         btns = [
@@ -49,7 +49,7 @@ class Main(Frame):
         elif operation == "DEL":
             self.formula = self.formula[0:-1]
         elif operation == "X^2":
-            self.formula = str((eval(self.formula)) ** 2)
+            self.formula = str((eval(self.formula))**2)
         elif operation == "=":
             self.formula = str(eval(self.formula))
         else:
